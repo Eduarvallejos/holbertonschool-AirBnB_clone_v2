@@ -28,7 +28,7 @@ class Place(BaseModel, Base):
 
     # For DBStorage
     reviews = relationship("Review", backref="place", cascade="all, delete-orphan")
-    amenities = relationship("Amenity", secondary=place_amenity, backref="place_amenities",viewonly=False)
+    amenities = relationship("Amenity", secondary=place_amenity, backref="place_amenities", viewonly=False)
 
     # For FileStorage
     @property

@@ -7,12 +7,11 @@ from sqlalchemy import Column, Table,  String, Integer, Float, ForeignKey
 from sqlalchemy.orm import relationship
 
 place_amenity = Table("place_amenity", Base.metadata,
-                      Column("place_id", String(60), ForeignKey("places.id"),
-                             nullable=False),
-                      Column("amenity_id", String(60),
-                             ForeignKey("amenities.id"),
-                             nullable=False)
-                      )
+    Column("place_id", String(60), ForeignKey("places.id"),
+           primary_key=True, nullable=False),
+    Column("amenity_id", String(60), ForeignKey("amenities.id"),
+           primary_key=True, nullable=False)
+)
 
 class Place(BaseModel, Base):
     """This class defines a Place by various attributes"""
@@ -32,7 +31,7 @@ class Place(BaseModel, Base):
     # For DBStorage
     reviews = relationship("Review", backref="place", cascade="all, delete-orphan")
     amenities = relationship("Amenity", secondary=place_amenity,
-                             backref="place_amenities", viewonly=False)
+                             backref="place_amenities",viewonly=False)
 
     # For FileStorage
     @property

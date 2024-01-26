@@ -15,7 +15,7 @@ if getenv('HBNB_TYPE_STORAGE') == 'db':
         Column("amenity_id", String(60), ForeignKey("amenities.id"),
             primary_key=True, nullable=False)
 )
-
+    print("Before import Place")
     class Place(BaseModel, Base):
         """This class defines a Place by various attributes"""
         __tablename__ = "places"
@@ -34,6 +34,7 @@ if getenv('HBNB_TYPE_STORAGE') == 'db':
         reviews = relationship("Review", backref="place", cascade="all, delete-orphan")
         amenities = relationship("Amenity", secondary=place_amenity,
                                 backref="place_amenities",viewonly=False)
+    print("After import Place")
     
 else:
     city_id = ""

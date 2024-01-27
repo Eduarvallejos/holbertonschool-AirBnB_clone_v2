@@ -38,44 +38,44 @@ if getenv('HBNB_TYPE_STORAGE') == 'db':
 else:
     class Place(BaseModel):
         """A place to stay FS"""
-    city_id = ""
-    user_id = ""
-    name = ""
-    description = ""
-    number_rooms = 0
-    number_bathrooms = 0
-    max_guest = 0
-    price_by_night = 0
-    latitude = 0.0
-    longitude = 0.0
-    amenity_ids = []
+        city_id = ""
+        user_id = ""
+        name = ""
+        description = ""
+        number_rooms = 0
+        number_bathrooms = 0
+        max_guest = 0
+        price_by_night = 0
+        latitude = 0.0
+        longitude = 0.0
+        amenity_ids = []
 
-    # For FileStorage
-    @property
-    def reviews(self):
-        """ FileStorage relationship between Place and Review """
-        from models import storage
-        review_list = []
-        for review in storage.all(Review).values():
-            if review.place_id == self.id:
-                review_list.append(review)
-        return review_list
-    
-    @property
-    def amenities(self):
-        from models import storage
-        """Getter for Amenity instances linked to Place class"""
-        amenity_list = []
-        for amenity_id in self.amenity_ids:
-            amenity = storage.get(Amenity, amenity_id)
-            if amenity:
-                amenity_list.append(amenity)
-        return amenity_list
-    
-    @amenities.setter
-    def amenities(self, amenity_obj):
-        """Setter attribute for amenities."""
-        if isinstance(amenity_obj, Amenity):
-            # Append Amenity.id to amenity_ids
-            if amenity_obj.id not in self.amenity_ids:
-                self.amenity_ids.append(amenity_obj.id)
+        # For FileStorage
+        @property
+        def reviews(self):
+            """ FileStorage relationship between Place and Review """
+            from models import storage
+            review_list = []
+            for review in storage.all(Review).values():
+                if review.place_id == self.id:
+                    review_list.append(review)
+            return review_list
+        
+        @property
+        def amenities(self):
+            from models import storage
+            """Getter for Amenity instances linked to Place class"""
+            amenity_list = []
+            for amenity_id in self.amenity_ids:
+                amenity = storage.get(Amenity, amenity_id)
+                if amenity:
+                    amenity_list.append(amenity)
+            return amenity_list
+        
+        @amenities.setter
+        def amenities(self, amenity_obj):
+            """Setter attribute for amenities."""
+            if isinstance(amenity_obj, Amenity):
+                # Append Amenity.id to amenity_ids
+                if amenity_obj.id not in self.amenity_ids:
+                    self.amenity_ids.append(amenity_obj.id)

@@ -36,7 +36,8 @@ if getenv('HBNB_TYPE_STORAGE') == 'db':
                                 backref="place_amenities",viewonly=False)
 
 else:
-    print("Before import Place")
+    class Place(BaseModel):
+        """A place to stay FS"""
     city_id = ""
     user_id = ""
     name = ""
@@ -78,5 +79,3 @@ else:
             # Append Amenity.id to amenity_ids
             if amenity_obj.id not in self.amenity_ids:
                 self.amenity_ids.append(amenity_obj.id)
-    
-    print("After import Place")

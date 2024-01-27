@@ -10,11 +10,12 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
+
 class DBStorage:
     """
-    DBStorage class provides a simple interface for interacting with a MySQL database
-    using SQLAlchemy. It includes methods for querying, adding, saving, and deleting
-    objects in the database.
+    DBStorage class provides a simple interface for interacting with a
+    MySQL database using SQLAlchemy. It includes methods for querying,
+    adding, saving, and deleting objects in the database.
     """
     __engine = None
     __session = None
@@ -37,7 +38,9 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """Query all objects from the database session based on the class name"""
+        """
+        Query all objects from the database session based on the class name
+        """
         classes = [User, State, City, Amenity, Place, Review]
         result_dict = {}
 
@@ -46,7 +49,7 @@ class DBStorage:
 
         for class_obj in classes:
             objects = self.__session.query(class_obj).all()
-            for obj in objects: 
+            for obj in objects:
                 key = f"{obj.__class__.__name__}.{obj.id}"
                 result_dict[key] = obj
         return result_dict
@@ -70,5 +73,5 @@ class DBStorage:
         Session = sessionmaker(bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(Session)
 
-    def close (self):
+    def close(self):
         self.__session.remove()

@@ -13,13 +13,15 @@ if getenv('HBNB_TYPE_STORAGE') == 'db':
         name = Column(String(128), nullable=False)
 
         # For DBStorage
-        cities = relationship("City", backref="state", cascade="all, delete-orphan")
+        cities = relationship("City", backref="state",
+                              cascade="all, delete-orphan")
 
 else:
     class State(BaseModel):
         """State class for FS"""
         name = ''
-    # For FileStorage
+
+        # For FileStorage
         @property
         def cities(self):
             from models import storage

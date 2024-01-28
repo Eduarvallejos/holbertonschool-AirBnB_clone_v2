@@ -13,9 +13,12 @@ app = Flask(__name__)
 Close the connection to the database
 terminate each Flask application context.
 """
+
+
 @app.teardown_appcontext
 def teardonw_db():
     storage.close()
+
 
 @app.route("/cities_by_states", strict_slashes=False)
 def cities_by_states():

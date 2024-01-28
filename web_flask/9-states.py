@@ -17,7 +17,7 @@ def states(id=None):
         """Gets the State object corresponding to the ID"""
         state_id = storage.get(State, id)
         return render_template("9_states.html",
-                           states=state_id)
+                               states=state_id)
     else:
         """If no ID is provided, get the list of all states"""
         state_list = storage.all(State).values()

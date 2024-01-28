@@ -19,6 +19,7 @@ terminate each Flask application context.
 def teardonw_db():
     storage.close()
 
+
 @app.route("/states_list", strict_slashes=False)
 def states_list():
     """
